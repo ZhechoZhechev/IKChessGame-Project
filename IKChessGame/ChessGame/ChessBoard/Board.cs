@@ -40,6 +40,13 @@ namespace ChessGame.ChessBoard
             this.board[arrayRow, arrayCol] = null;
         }
 
+        public IFigure GetFigureAtPosition(Possition possition)
+        {
+            int arrayRow = this.GetArrayRow(possition.Row);
+            int arrayCol = this.GetArrayCol(possition.Col);
+            return this.board[arrayRow, arrayCol];
+        }
+
         private int GetArrayRow(int chessRows)
             => this.TotalRows - chessRows;
 
@@ -55,5 +62,6 @@ namespace ChessGame.ChessBoard
                 throw new IndexOutOfRangeException(GlobalErrorMessages.ColValueInvalid);
   
         }
+
     }
 }

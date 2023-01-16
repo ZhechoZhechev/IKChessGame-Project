@@ -8,5 +8,7 @@
         int TotalCols { get; }
         void AddFigure(IFigure figure, Possition possition);
         void RemoveFigure(Possition possition);
+
+        IFigure GetFigureAtPosition(Possition possition);
     }
 }
