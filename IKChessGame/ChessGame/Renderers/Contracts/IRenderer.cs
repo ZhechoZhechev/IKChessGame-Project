@@ -6,5 +6,6 @@ namespace ChessGame.Renderers.Contracts
     {
         void RenderMainMenu();
         void RenderBoard(IBoard board);
+        void PrintErrorMessage(string errorMessage);
     }
 }

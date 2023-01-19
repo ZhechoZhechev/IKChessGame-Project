@@ -24,7 +24,7 @@ namespace ChessGame.ChessBoard
         public void AddFigure(IFigure figure, Possition possition)
         {
             ObjectValidator.CheckIfObjectIsNull(figure, GlobalErrorMessages.FigureCannotBeNull);
-            CheckIfPossitionOfFigureIsValid(possition);
+            Possition.CheckIfValid(possition);
 
             int arrayRow = this.GetArrayRow(possition.Row);
             int arrayCol = this.GetArrayCol(possition.Col);
@@ -33,7 +33,7 @@ namespace ChessGame.ChessBoard
 
         public void RemoveFigure(Possition possition)
         {
-            CheckIfPossitionOfFigureIsValid(possition);
+            Possition.CheckIfValid(possition);
 
             int arrayRow = this.GetArrayRow(possition.Row);
             int arrayCol = this.GetArrayCol(possition.Col);
@@ -52,16 +52,6 @@ namespace ChessGame.ChessBoard
 
         private int GetArrayCol(char chessCol)
             => chessCol - 'a';
-
-        private void CheckIfPossitionOfFigureIsValid(Possition possition)
-        {
-            if (possition.Row < GlobalConstants.MinRowValueOnBoard || possition.Row > GlobalConstants.MaxRowValueOnBoard)
-                throw new IndexOutOfRangeException(GlobalErrorMessages.RowValueInvalid);
-
-            if (possition.Col < GlobalConstants.MinColValueOnBoard || possition.Col > GlobalConstants.MaxColValueOnBoard)
-                throw new IndexOutOfRangeException(GlobalErrorMessages.ColValueInvalid);
-  
-        }
 
     }
 }

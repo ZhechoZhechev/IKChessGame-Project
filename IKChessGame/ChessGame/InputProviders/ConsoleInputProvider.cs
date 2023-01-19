@@ -12,6 +12,7 @@
     public class ConsoleInputProvider : IInputProvider
     {
         private const string PLayerNameText = "Enter player {0} name: ";
+
         public IList<IPlayer> GetPLayers(int numberOfPlayers) 
         {
             var players = new List<IPlayer>();
@@ -27,6 +28,21 @@
             }
 
             return players;
+        }
+
+        //Command is in format: c5-a5
+        public Move GetNextPlayerMove(IPlayer player)
+        {
+
+            ConsoleHelpers.ClearRow(ConsoleConstants.ConsoleRowForPlayersIO);
+
+            Console.SetCursorPosition(Console.WindowWidth / 2 - 9, ConsoleConstants.ConsoleRowForPlayersIO);
+
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.Write("{0} is next:", player.Name);
+            var positionAsString = Console.ReadLine().Trim().ToLower();
+            return ConsoleHelpers.CreateMoveFromCommand(positionAsString);
+
         }
     }
 }

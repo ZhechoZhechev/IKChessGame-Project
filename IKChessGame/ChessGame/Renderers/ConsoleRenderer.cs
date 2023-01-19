@@ -16,6 +16,19 @@ namespace ChessGame.Renderers
         private const ConsoleColor DarkSquare = ConsoleColor.DarkGray;
         private const ConsoleColor LightSquare = ConsoleColor.Gray;
 
+        public ConsoleRenderer()
+        {
+            if (Console.WindowWidth < 100 || Console.WindowHeight < 80)
+            {
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.ForegroundColor = ConsoleColor.Gray;
+                Console.Clear();
+                Console.WriteLine("Plese set the Console window and buffer size 100x80." +
+                    " For best experience use Raster Fonts 8x8");
+                Environment.Exit(0);
+            }
+        }
+
         public void RenderMainMenu()
         {
             ConsoleHelpers.SetCursorAtCenter(Logo.Length);
@@ -65,8 +78,17 @@ namespace ChessGame.Renderers
                 counter++;
             }
 
+        }
 
-            Console.ReadLine();
+        public void PrintErrorMessage(string errorMessage)
+        {
+            ConsoleHelpers.ClearRow(ConsoleConstants.ConsoleRowForPlayersIO);
+
+            Console.SetCursorPosition(Console.WindowWidth / 2 - 9, ConsoleConstants.ConsoleRowForPlayersIO);
+            Console.Write(errorMessage);
+            Thread.Sleep(2000);
+
+            ConsoleHelpers.ClearRow(ConsoleConstants.ConsoleRowForPlayersIO);
         }
     }
 }
