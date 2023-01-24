@@ -1,7 +1,10 @@
-﻿using ChessGame.Common;
-
+﻿
 namespace ChessGame.ChessPieces.Contracts
 {
+    using System.Collections.Generic;
+
+    using Common;
+    using Movements.Contracts;
     public abstract class BaseFigure : IFigure
     {
         protected BaseFigure(ChessColor color)
@@ -10,5 +13,7 @@ namespace ChessGame.ChessPieces.Contracts
         }
 
         public ChessColor Color { get; private set; }
+
+        public abstract ICollection<IMovement> Move();
     }
 }

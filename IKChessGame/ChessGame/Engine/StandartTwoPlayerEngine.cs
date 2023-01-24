@@ -14,6 +14,7 @@ namespace ChessGame.Engine
     using ChessBoard;
     using ChessBoard.Contracts;
     using Players;
+    using ChessGame.ChessPieces.Contracts;
 
     public class StandartTwoPlayerEngine : IChessEngine
     {
@@ -63,6 +64,24 @@ namespace ChessGame.Engine
                 {
                     var player = this.GetNextPlayer();
                     var move = this.input.GetNextPlayerMove(player);
+                    var from = move.From;
+                    var to = move.To;
+                    var figure = this.board.GetFigureAtPosition(from);
+                    this.CheckIfPlayerOwnsFigure(player, figure, from);
+                    this.CheckIfToPositionIsEmpty(figure, to);
+
+                    var allAvailableMovements = figure.Move();
+                    foreach (var movement in allAvailableMovements)
+                    {
+                        movement.ValidateMove(figure, board, move);
+                    }
+
+                    // TODO: On every move check if we are in check
+                    // TODO: Check pawn on last row
+                    // TODO: If not castle - move figure (check castle - check if castle is valid, check pawn for An-pasan)
+                    // TODO: If in check - check checkmate
+                    // TODO: If not in check - check draw
+                    // TODO: Continue
                 }
                 catch (Exception ex)
                 {
@@ -74,13 +93,14 @@ namespace ChessGame.Engine
 
         }
 
+
         private void SetFirstPlayerIndex()
         {
             for (int i = 0; i < players.Count(); i++)
             {
                 if (players[i].Color == ChessColor.White )
                 {
-                    this.currentPlayerIndex = i;
+                    this.currentPlayerIndex = i -1;
                     return;
                 }
             }
@@ -102,5 +122,26 @@ namespace ChessGame.Engine
 
             return this.players[this.currentPlayerIndex];
         }
+
+        private void CheckIfPlayerOwnsFigure(IPlayer player, IFigure figure, Possition from)
+        {
+            
+            if (figure == null)
+                throw new InvalidOperationException("No figure at this position !");
+
+            if(figure.Color != player.Color)
+                throw new InvalidOperationException("Figure not yours!");
+        }
+
+        private void CheckIfToPositionIsEmpty( IFigure figure, Possition to)
+        {
+            var figureAtToPoss = this.board.GetFigureAtPosition(to);
+            if (figureAtToPoss != null && figureAtToPoss.Color == figure.Color)
+            {
+                throw new InvalidOperationException("You already have a figure at that position!");
+            }
+        }
+
+
     }
 }
