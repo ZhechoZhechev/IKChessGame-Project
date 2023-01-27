@@ -10,5 +10,6 @@
         void RemoveFigure(Possition possition);
 
         IFigure GetFigureAtPosition(Possition possition);
+        void MoveFigureAtPosition(IFigure figure, Possition from, Possition to);
     }
 }

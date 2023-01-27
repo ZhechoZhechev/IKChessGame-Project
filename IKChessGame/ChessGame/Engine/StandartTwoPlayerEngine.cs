@@ -14,7 +14,9 @@ namespace ChessGame.Engine
     using ChessBoard;
     using ChessBoard.Contracts;
     using Players;
-    using ChessGame.ChessPieces.Contracts;
+    using ChessPieces.Contracts;
+    using Movements.Contracts;
+    using Movements.Strategies;
 
     public class StandartTwoPlayerEngine : IChessEngine
     {
@@ -22,6 +24,7 @@ namespace ChessGame.Engine
         private readonly IRenderer renderer;
         private readonly IInputProvider input;
         private readonly IBoard board;
+        private readonly IMovementStrategy movementStrategy;
 
         private int currentPlayerIndex;
 
@@ -30,7 +33,7 @@ namespace ChessGame.Engine
             this.renderer = renderer;
             this.input = inputProvider;
             this.board = new Board();
-
+            this.movementStrategy = new NormalMovementStrategy();
         }
 
 
@@ -70,11 +73,14 @@ namespace ChessGame.Engine
                     this.CheckIfPlayerOwnsFigure(player, figure, from);
                     this.CheckIfToPositionIsEmpty(figure, to);
 
-                    var allAvailableMovements = figure.Move();
+                    var allAvailableMovements = figure.Move(movementStrategy);
                     foreach (var movement in allAvailableMovements)
                     {
                         movement.ValidateMove(figure, board, move);
                     }
+
+                    board.MoveFigureAtPosition(figure, from, to);
+                    this.renderer.RenderBoard(board);
 
                     // TODO: On every move check if we are in check
                     // TODO: Check pawn on last row

@@ -10,6 +10,6 @@ namespace ChessGame.ChessPieces.Contracts
     {
         ChessColor Color { get;  }
 
-        ICollection<IMovement> Move();
+        ICollection<IMovement> Move(IMovementStrategy movementStrategy);
     }
 }

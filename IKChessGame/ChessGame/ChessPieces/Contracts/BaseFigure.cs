@@ -7,6 +7,7 @@ namespace ChessGame.ChessPieces.Contracts
     using Movements.Contracts;
     public abstract class BaseFigure : IFigure
     {
+        //TODO: Remove all inheritance and use FigureType enum
         protected BaseFigure(ChessColor color)
         {
             Color = color;
@@ -14,6 +15,6 @@ namespace ChessGame.ChessPieces.Contracts
 
         public ChessColor Color { get; private set; }
 
-        public abstract ICollection<IMovement> Move();
+        public abstract ICollection<IMovement> Move(IMovementStrategy movementStrategy);
     }
 }

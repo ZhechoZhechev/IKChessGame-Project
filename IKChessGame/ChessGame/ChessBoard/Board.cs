@@ -46,6 +46,16 @@ namespace ChessGame.ChessBoard
             int arrayCol = this.GetArrayCol(possition.Col);
             return this.board[arrayRow, arrayCol];
         }
+        public void MoveFigureAtPosition(IFigure figure, Possition from, Possition to)
+        {
+            int arrayFromRow = this.GetArrayRow(from.Row);
+            int arrayFromCol = this.GetArrayCol(from.Col);
+            this.board[arrayFromRow, arrayFromCol] = null;
+
+            int arrayToRow = this.GetArrayRow(to.Row);
+            int arrayToCol = this.GetArrayCol(to.Col);
+            this.board[arrayToRow, arrayToCol] = figure;
+        }
 
         private int GetArrayRow(int chessRows)
             => this.TotalRows - chessRows;

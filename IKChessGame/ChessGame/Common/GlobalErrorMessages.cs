@@ -9,5 +9,6 @@
         public const string FigureDoesNotExists = "The player does not own this figure";
         public const string StandardGameStratNeedTwoPlayers = "You must have two players to start";
         public const string StandardGameStratNeedEightRowsAndCols = "Game board dimensions must be eight by eight";
+        public const string FigureOnTheWayErrorMessage = "There is a figure on your way!";
     }
 }
