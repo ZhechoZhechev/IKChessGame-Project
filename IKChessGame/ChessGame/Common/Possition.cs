@@ -4,12 +4,22 @@ namespace ChessGame.Common
     using System;
     public struct Possition
     {
+        
+        public Possition(int row, char col)
+        {
+            this.Row = row;
+            this.Col = col;
+        }
+
+        public int Row { get; private set; }
+        public char Col { get; private set; }
+
         public static Possition FromArrayCoordinates(int arrRow, int arrCol, int totalRows)
         {
             return new Possition(totalRows - arrRow, (char)(arrCol + 'a'));
         }
 
-        public static Possition FromChessCoordinates(int chessRow, char chessCol) 
+        public static Possition FromChessCoordinates(int chessRow, char chessCol)
         {
             var newPosition = new Possition(chessRow, chessCol);
             Possition.CheckIfValid(newPosition);
@@ -25,13 +35,5 @@ namespace ChessGame.Common
                 throw new IndexOutOfRangeException(GlobalErrorMessages.ColValueInvalid);
 
         }
-        public Possition(int row, char col)
-        {
-            this.Row = row;
-            this.Col = col;
-        }
-
-        public int Row { get; private set; }
-        public char Col { get; private set; }
     }
 }
