@@ -19,6 +19,10 @@ namespace ChessGame.Movements.Strategies
             {"Rook", new List<IMovement>
             {
                 new NormalRookMovement()
+            }},
+            {"King", new List<IMovement>
+            {
+                new NormalKingMovement()
             }}
         };
         public IList<IMovement> GetMovements(string figure)
