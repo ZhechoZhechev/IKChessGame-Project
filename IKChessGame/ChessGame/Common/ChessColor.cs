@@ -4,6 +4,7 @@
     {
         Black,
         White,
-        Brown
+        Brown,
+        None
     }
 }
