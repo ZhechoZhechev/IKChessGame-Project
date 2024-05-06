@@ -114,7 +114,7 @@ namespace ChessGame.Engine
 
         public void WinningConditions()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         private IPlayer GetNextPlayer()
